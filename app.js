@@ -11,7 +11,7 @@ const roleRoute = require('./routes/role');
 app.use(morgan('dev'));
 
 // app.use('/', userRoute);
-app.use('/', roleRoute);
+app.use('/role', roleRoute);
 
 
 module.exports = app;
