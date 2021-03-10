@@ -14,4 +14,15 @@ module.exports = {
 		const result = client.getAllRoles({ userId, guildId });
 		return res.status(200).send(result);
 	},
+
+	addRole:async (req, res) => {
+		const { role, userId } = req.body;
+		try {
+			await client.setRoleMember({ userId, role, guildId });
+			res.status(200).end();
+		}
+		catch {
+			res.status(401).end();
+		}
+	},
 };

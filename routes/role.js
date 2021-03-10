@@ -6,10 +6,7 @@ const roleController = require('../controllers/role');
 
 router.get('', roleController.getAllRoleByUserIDAndGuildID);
 
-router.post('/add-role', async (req, res) => {
-
-
-});
+router.post('/add-role', roleController.addRole);
 
 router.get('/all-roles-guild', roleController.getAllRoles);
 
