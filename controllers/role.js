@@ -1,7 +1,7 @@
 const client = require('../utils/clinet');
 
-const GUILD_ID = process.env.GUILD_ID;
-console.log({ GUILD_ID });
+const GUILD_ID = '811211435979440178';
+
 module.exports = {
 	getAllRoleByUserIDAndGuildID: async (req, res) => {
 		const { userId } = req.query;
