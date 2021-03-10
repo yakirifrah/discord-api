@@ -10,9 +10,8 @@ class Client {
 		return Client.instance;
 	}
 
-	 getRoles(userId = '473875604236664833', guildId = '811211435979440178') {
-
-		const guildMembers = this.client.guilds.cache.get('811211435979440178');
+	getRolesByUser({ userId, guildId }) {
+		const guildMembers = this.client.guilds.cache.get(guildId);
 		const roleIDs = guildMembers.members.cache.find(member => member.id === userId)._roles;
 		if (!roleIDs.length) {
 			return;
