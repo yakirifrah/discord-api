@@ -16,7 +16,7 @@ module.exports = {
 	},
 
 	addRole:async (req, res) => {
-		const { role, userId } = req.body;
+		const { role, userId } = req.query;
 		try {
 			await client.setRoleMember({ userId, role, guildId });
 			res.status(200).end('success');
