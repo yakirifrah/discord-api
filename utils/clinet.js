@@ -45,6 +45,20 @@ class Client {
 		}
 	}
 
+	async editRoleMember({ userId, guildId, role }, operation) {
+		const guild = this.client.guilds.cache.get(guildId);
+		const tempRole = guild.roles.cache.find(roleEl => roleEl.name === role);
+		const member = guild.members.cache.find(memberEL => memberEL.id === userId);
+		try {
+			operation === 'ADD' ? await member.roles.add(tempRole) : await member.roles.remove(tempRole);
+		}
+		catch {
+			throw 'Error';
+		}
+
+
+	}
+
 
 }
 const client = new Client();

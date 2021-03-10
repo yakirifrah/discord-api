@@ -8,6 +8,8 @@ router.get('', roleController.getAllRoleByUserIDAndGuildID);
 
 router.post('/add-role', roleController.addRole);
 
+router.post('/del-role', roleController.delRole);
+
 router.get('/all-roles-guild', roleController.getAllRoles);
 
 module.exports = router;
