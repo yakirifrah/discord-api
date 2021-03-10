@@ -10,8 +10,8 @@ class Client {
 		return Client.instance;
 	}
 
-	getRolesByUser({ userId, guildId }) {
-		const guild = this.client.guilds.cache.get(guildId);
+	getRolesByUser({ userId, GUILD_ID }) {
+		const guild = this.client.guilds.cache.get(GUILD_ID);
 		const roleIDs = guild.members.cache.find(member => member.id === userId)._roles;
 		if (!roleIDs.length) {
 			return;
@@ -22,8 +22,8 @@ class Client {
 		}));
 	}
 
-	getAllRoles({ userId, guildId }) {
-		const guild = this.client.guilds.cache.get(guildId);
+	getAllRoles({ userId, GUILD_ID }) {
+		const guild = this.client.guilds.cache.get(GUILD_ID);
 		const roleIDs = guild.members.cache.find(member => member.id === userId)._roles;
 		const roles = guild.roles.cache.filter(role=>!role.managed && role.name !== '@everyone' && role.editable && !roleIDs.includes(role.id));
 		return roles.map(role => ({
@@ -32,18 +32,18 @@ class Client {
 		}));
 	}
 
-	async setRoleMember({ userId, guildId, role }) {
-
-		const guild = this.client.guilds.cache.get(guildId);
-		const tempRole = guild.roles.cache.find(roleEl => roleEl.name === role);
-		const member = guild.members.cache.find(memberEL => memberEL.id === userId);
-		try {
-			await member.roles.add(tempRole);
-		}
-		catch {
-			throw 'Error';
-		}
-	}
+	// async setRoleMember({ userId, GUILD_ID, role }) {
+	//
+	// 	const guild = this.client.guilds.cache.get(GUILD_ID);
+	// 	const tempRole = guild.roles.cache.find(roleEl => roleEl.name === role);
+	// 	const member = guild.members.cache.find(memberEL => memberEL.id === userId);
+	// 	try {
+	// 		await member.roles.add(tempRole);
+	// 	}
+	// 	catch {
+	// 		throw 'Error';
+	// 	}
+	// }
 
 	async editRoleMember({ userId, GUILD_ID, role }, operation) {
 		const guild = this.client.guilds.cache.get(GUILD_ID);
