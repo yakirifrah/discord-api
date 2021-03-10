@@ -2,19 +2,10 @@ const client = require('../utils/clinet');
 
 module.exports = {
 	getAllRoleByUserIDAndGuildID: async (req, res, next) => {
-		// const { userId } = req.params.user;
-		if (!await client.getRoles()) {
-			res.json({
-				status: 200,
-				data: {},
-			});
-
+		if (!client.getRoles()) {
+			res.status(200).send([]);
 		}
-		res.json({
-			status: 200,
-			data:await client.getRoles(),
-		});
+		res.status(200).send(client.getRoles());
 		next();
-
 	},
 };
