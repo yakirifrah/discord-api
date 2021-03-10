@@ -45,18 +45,17 @@ class Client {
 		}
 	}
 
-	async editRoleMember({ userId, guildId, role }, operation) {
-		const guild = this.client.guilds.cache.get(guildId);
+	async editRoleMember({ userId, GUILD_ID, role }, operation) {
+		const guild = this.client.guilds.cache.get(GUILD_ID);
+		console.log({ guild });
 		const tempRole = guild.roles.cache.find(roleEl => roleEl.name === role);
 		const member = guild.members.cache.find(memberEL => memberEL.id === userId);
 		try {
-			operation === 'ADD' ? await member.roles.add(tempRole) : await member.roles.remove(tempRole);
+			return await member.roles.add(tempRole) ? operation === 'ADD' : await member.roles.remove(tempRole);
 		}
 		catch {
 			throw 'Error';
 		}
-
-
 	}
 
 
