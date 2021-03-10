@@ -19,10 +19,10 @@ module.exports = {
 		const { role, userId } = req.body;
 		try {
 			await client.setRoleMember({ userId, role, guildId });
-			res.status(200).end();
+			res.status(200).end('success');
 		}
 		catch {
-			res.status(401).end();
+			res.status(401).end('error');
 		}
 	},
 };
