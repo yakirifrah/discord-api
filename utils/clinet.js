@@ -20,14 +20,19 @@ class Client {
 			id,
 			role: guildMembers.roles.cache.get(id).name,
 		}));
-		// const myRole = guildMembers.roles.cache.get(roleIDs[0]).name;
-
-
-		// const roles = guildMembers.members.cache.get(userId).roles.cache.filter(role => role.id === roleIDs[0]);
-		// console.log('############');
-		// console.log(roles);
-
 	}
+
+	getAllRoles({ userId, guildId }) {
+		const guildMembers = this.client.guilds.cache.get(guildId);
+		const roleIDs = guildMembers.members.cache.find(member => member.id === userId)._roles;
+		console.log({ roleIDs });
+		const roles = guildMembers.roles.cache.filter(role=>!role.managed && role.name !== '@everyone' && role.editable && !roleIDs.includes(role.id));
+		return roles.map(role => ({
+			id:role.id,
+			role:role.name,
+		}));
+	}
+
 	setRoleToUserIdAndGuildId(userId = '473875604236664833', guildId = '81384788765712384') {
 
 	}
