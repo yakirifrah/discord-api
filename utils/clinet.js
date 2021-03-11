@@ -11,25 +11,35 @@ class Client {
 	}
 
 	getRolesByUser({ userId, GUILD_ID }) {
-		const guild = this.client.guilds.cache.get(GUILD_ID);
-		const roleIDs = guild.members.cache.find(member => member.id === userId)._roles;
-		if (!roleIDs.length) {
-			return;
+		try {
+			const guild = this.client.guilds.cache.get(GUILD_ID);
+			const roleIDs = guild.members.cache.find(member => member.id === userId)._roles;
+			if (!roleIDs.length) {
+				return;
+			}
+			return roleIDs.map(id => ({
+				id,
+				role: guild.roles.cache.get(id).name,
+			}));
 		}
-		return roleIDs.map(id => ({
-			id,
-			role: guild.roles.cache.get(id).name,
-		}));
+		catch {
+			throw 'Error';
+		}
 	}
 
 	getAllRoles({ userId, GUILD_ID }) {
-		const guild = this.client.guilds.cache.get(GUILD_ID);
-		const roleIDs = guild.members.cache.find(member => member.id === userId)._roles;
-		const roles = guild.roles.cache.filter(role=>!role.managed && role.name !== '@everyone' && role.editable && !roleIDs.includes(role.id));
-		return roles.map(role => ({
-			id:role.id,
-			role:role.name,
-		}));
+		try {
+			const guild = this.client.guilds.cache.get(GUILD_ID);
+			const roleIDs = guild.members.cache.find(member => member.id === userId)._roles;
+			const roles = guild.roles.cache.filter(role=>!role.managed && role.name !== '@everyone' && role.editable && !roleIDs.includes(role.id));
+			return roles.map(role => ({
+				id:role.id,
+				role:role.name,
+			}));
+		}
+		catch {
+			throw 'Error';
+		}
 	}
 
 	async addRoleToGuild({ GUILD_ID, role, color }) {
@@ -41,7 +51,7 @@ class Client {
 						name: role,
 						color,
 					},
-					reason: 'we needed a role for Super Cool People',
+					reason: `we needed a role for ${role} peoples`,
 				});
 			}
 			catch {
