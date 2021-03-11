@@ -38,4 +38,15 @@ module.exports = {
 			res.status(401).end('error');
 		}
 	},
+
+	addGuildRole: async (req, res) => {
+		const { role, color } = req.query;
+		try {
+			await client.addRoleToGuild({ GUILD_ID, role, color });
+			res.status(200).end('success');
+		}
+		catch {
+			res.status(401).end('error');
+		}
+	},
 };

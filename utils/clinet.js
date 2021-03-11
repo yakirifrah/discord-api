@@ -32,22 +32,26 @@ class Client {
 		}));
 	}
 
-	// async setRoleMember({ userId, GUILD_ID, role }) {
-	//
-	// 	const guild = this.client.guilds.cache.get(GUILD_ID);
-	// 	const tempRole = guild.roles.cache.find(roleEl => roleEl.name === role);
-	// 	const member = guild.members.cache.find(memberEL => memberEL.id === userId);
-	// 	try {
-	// 		await member.roles.add(tempRole);
-	// 	}
-	// 	catch {
-	// 		throw 'Error';
-	// 	}
-	// }
+	async addRoleToGuild({ GUILD_ID, role, color }) {
+		const guild = this.client.guilds.cache.get(GUILD_ID);
+		if (!guild.roles.cache.find(roleEl=>roleEl.name === role)) {
+			try {
+				await guild.roles.create({
+					data:{
+						name: role,
+						color,
+					},
+					reason: 'we needed a role for Super Cool People',
+				});
+			}
+			catch {
+				throw 'Error';
+			}
+		}
+	}
 
 	async editRoleMember({ userId, GUILD_ID, role }, operation) {
 		const guild = this.client.guilds.cache.get(GUILD_ID);
-		console.log({ operation });
 		const tempRole = guild.roles.cache.find(roleEl => roleEl.name === role);
 		const member = guild.members.cache.find(memberEL => memberEL.id === userId);
 		try {

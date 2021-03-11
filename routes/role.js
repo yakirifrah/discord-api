@@ -6,10 +6,9 @@ const roleController = require('../controllers/role');
 
 router.get('', roleController.getAllRoleByUserIDAndGuildID);
 
-router.post('/add-role', roleController.addRole);
-
-router.post('/del-role', roleController.delRole);
-
-router.get('/all-roles-guild', roleController.getAllRoles);
+router.post('/add-role-member', roleController.addRole);
+router.post('/add-guild-role', roleController.addGuildRole);
+router.post('/del-role-member', roleController.delRole);
+router.get('/all-role-guild', roleController.getAllRoles);
 
 module.exports = router;
